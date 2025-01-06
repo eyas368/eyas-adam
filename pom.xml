@@ -75,16 +75,7 @@
             <artifactId>logback-classic</artifactId>
             <version>1.5.15</version>
         </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>kernel</artifactId>
-            <version>7.2.5</version> <!-- Replace with the latest available version -->
-        </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>layout</artifactId>
-            <version>7.2.5</version> <!-- Replace with the latest available version -->
-        </dependency>
+ 
 
     </dependencies>
 
