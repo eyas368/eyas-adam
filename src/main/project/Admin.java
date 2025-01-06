@@ -160,31 +160,7 @@ public class Admin {
 
 
     private void GenerateRevenueReports(Clients clients,Programs programs, String path){
-        String pdfPath = path; // Output PDF file path
-
-        try (PdfWriter writer = new PdfWriter(pdfPath);
-             PdfDocument pdfDocument = new PdfDocument(writer);
-             Document document = new Document(pdfDocument)) {
-
-            // Adding content to the PDF
-            document.add(new Paragraph(String.format("%-" + 40 + "s","program") +" | "+String.format("%-" + 36 + "s","#ofClients")+" | " +String.format("%-" + 36 + "s","price")));
-            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-            int sum=0;
-            for(Program program:programs.getPrograms()) {
-                String temp = String.format("%-" + 40 + "s", program.getTitle()) + "  |  " + String.format("%-" + 40 + "s", program.getClients(clients,programs).size()+"") + "  |  " + String.format("%-" + 40 + "s", program.getPrice()+"");
-                sum+=program.getClients(clients,programs).size()*program.getPrice();
-                document.add( new Paragraph(temp));
-                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-            }
-            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-            document.add(new Paragraph("total:"+sum));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+ 
 
 
     }
