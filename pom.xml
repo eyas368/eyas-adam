@@ -138,5 +138,9 @@
         <sourceDirectory>src/main/project</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
     </build>
+         <properties>
+  <sonar.organization>eyasadamorganization</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
 
 </project>
