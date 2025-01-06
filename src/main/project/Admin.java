@@ -157,31 +157,7 @@ public class Admin {
 
     private void GenerateProgressReports(Clients clients,Programs programs,String path) throws FileNotFoundException {
 
-        String pdfPath = path; // Output PDF file path
-
-
-        try (PdfWriter writer = new PdfWriter(pdfPath);
-             PdfDocument pdfDocument = new PdfDocument(writer);
-             Document document = new Document(pdfDocument)) {
-
-            // Adding content to the PDF
-            document.add(new Paragraph(String.format("%-" + 38 + "s","client id") +" | "+String.format("%-" + 32 + "s","CompletionRate")+" | " +String.format("%-" + 36 + "s","AttendanceRecord")));
-            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-
-            for(Client client:clients.getClients()) {
-                String temp = String.format("%-" + 40 + "s", client.getID()+"") + "  |  " + String.format("%-" + 40 + "s", client.getCompletionRate()==-1?"missed":client.getCompletionRate()+"") + "  |  " + String.format("%-" + 40 + "s", client.getAttendanceRecord()==-1?"missed":client.getAttendanceRecord()+"");
-                document.add( new Paragraph(temp));
-
-                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-            }
-         } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
+       
     }
 
 
