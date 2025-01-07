@@ -16,9 +16,11 @@ public class ViewTheMostPopularProgramsByEnrollment {
 
     private Programs programs;
     private Clients clients;
-    public   ViewTheMostPopularProgramsByEnrollment(Clients clients,Programs programs){
+    private Admin admin;
+    public   ViewTheMostPopularProgramsByEnrollment(Clients clients,Programs programs,Admin admin){
         this.clients=clients;
         this.programs=programs;
+        this.admin=admin;
     }
     @Given("the following program enrollment data:")
     public void theFollowingProgramEnrollmentData(io.cucumber.datatable.DataTable dataTable) {
@@ -40,7 +42,7 @@ public class ViewTheMostPopularProgramsByEnrollment {
     @When("I request the programs sorted by enrollment")
     public void iRequestTheProgramsSortedByEnrollment() {
         // Write code here that turns the phrase above into concrete actions
-          actualMessage=programs.ViewTheMostPopularProgramsByEnrollment("0",programsDataActual,clients);
+          actualMessage=admin.ViewTheMostPopularProgramsByEnrollment("0",programsDataActual,clients,programs);
 
      }
     @Then("the programs should be sorted in descending order of enrollments")
@@ -80,7 +82,7 @@ public class ViewTheMostPopularProgramsByEnrollment {
     public void iRequestTheProgramsSortedByPrice() {
         // Write code here that turns the phrase above into concrete actions
         programsDataActual.clear();
-        actualMessage=programs.ViewTheMostPopularProgramsByEnrollment("1",programsDataActual,clients);
+        actualMessage=admin.ViewTheMostPopularProgramsByEnrollment("1",programsDataActual,clients,programs);
 
     }
     @Then("the programs should be sorted in descending order of price")

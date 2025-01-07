@@ -8,9 +8,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner; 
+import java.util.Scanner;
 
- 
+
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 
 public class Admin {
@@ -153,16 +157,128 @@ public class Admin {
 
     private void GenerateProgressReports(Clients clients,Programs programs,String path) throws FileNotFoundException {
 
-       
+        String pdfPath = path; // Output PDF file path
+
+
+        try (PdfWriter writer = new PdfWriter(pdfPath);
+             PdfDocument pdfDocument = new PdfDocument(writer);
+             Document document = new Document(pdfDocument)) {
+
+            // Adding content to the PDF
+            document.add(new Paragraph(String.format("%-" + 38 + "s","client id") +" | "+String.format("%-" + 32 + "s","CompletionRate")+" | " +String.format("%-" + 36 + "s","AttendanceRecord")));
+            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+
+            for(Client client:clients.getClients()) {
+                String temp = String.format("%-" + 40 + "s", client.getID()+"") + "  |  " + String.format("%-" + 40 + "s", client.getCompletionRate()==-1?"missed":client.getCompletionRate()+"") + "  |  " + String.format("%-" + 40 + "s", client.getAttendanceRecord()==-1?"missed":client.getAttendanceRecord()+"");
+                document.add( new Paragraph(temp));
+
+                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
 
 
 
     private void GenerateRevenueReports(Clients clients,Programs programs, String path){
- 
+        String pdfPath = path; // Output PDF file path
+
+        try (PdfWriter writer = new PdfWriter(pdfPath);
+             PdfDocument pdfDocument = new PdfDocument(writer);
+             Document document = new Document(pdfDocument)) {
+
+            // Adding content to the PDF
+            document.add(new Paragraph(String.format("%-" + 40 + "s","program") +" | "+String.format("%-" + 36 + "s","#ofClients")+" | " +String.format("%-" + 36 + "s","price")));
+            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+            int sum=0;
+            for(Program program:programs.getPrograms()) {
+                String temp = String.format("%-" + 40 + "s", program.getTitle()) + "  |  " + String.format("%-" + 40 + "s", UniversalMethods.getClients(clients,programs,program).size()+"") + "  |  " + String.format("%-" + 40 + "s", program.getPrice()+"");
+                sum+=UniversalMethods.getClients(clients,programs,program).size()*program.getPrice();
+                document.add( new Paragraph(temp));
+                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+            }
+            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+            document.add(new Paragraph("total:"+sum));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
+
+    }
+    public String ViewTheMostPopularProgramsByEnrollment(String type,ArrayList<ProgramData>  programsToView,Clients clients, Programs programs){
+        if(!UniversalMethods.isInteger(String.valueOf(type)))return "wrong type";
+        else {
+            int Type=Integer.parseInt(type);
+            if(Type<0||Type>1)return "wrong type";
+            if(Type==0){
+                programsToView.clear();
+                ArrayList<Program> programsTemp=new ArrayList<>(programs.getPrograms());
+                programsTemp.sort(Comparator.comparingInt((Program p)-> {
+                    try {
+                        return UniversalMethods.getClients(clients, programs,p).size();
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).reversed().thenComparing(Program::getTitle));
+                for(Program program:programsTemp) {
+                    try {
+                        programsToView.add(new ProgramData(program.getTitle(),UniversalMethods.getClients(clients,programs,program).size()));
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                return "viewed successfully";
+            }
+            programsToView.clear();
+            ArrayList<Program> programsTemp=new ArrayList<>(programs.getPrograms());
+            programsTemp.sort(Comparator.comparingInt(Program::getPrice).reversed().thenComparing(Program::getTitle));
+            for(Program program:programsTemp)programsToView.add(new ProgramData(program.getTitle(),program.getPrice()));
+            return "viewed successfully";
+        }
+
+    }
+    public ProgramStatistics ViewStatisticsOnAProgram(String programTitle ,Clients clients,Programs programs) throws FileNotFoundException {
+        String message;
+        ArrayList<ClientStatistics> clientStatistics;
+        Program program=programs.searchForProgram(programTitle);
+        if(program==null){
+            message="this program does not exist";
+            clientStatistics=new ArrayList<>();
+            return new ProgramStatistics(clientStatistics,message);
+        }
+        else{
+            ArrayList<Client> clientsForTheProgram;
+            if((clientsForTheProgram=UniversalMethods.getClients(clients, programs , program)).isEmpty()){
+                message="this program does not have any clients";
+                clientStatistics=new ArrayList<>();
+                return new ProgramStatistics(clientStatistics,message);
+            }
+            clientStatistics=new ArrayList<>();
+            int clientID;
+            int attendance;
+            int completion;
+            message="there is an error in the details of client";
+            for(Client client:clientsForTheProgram){
+                clientID=client.getID();
+                attendance=client.getAttendanceRecord();
+                completion=client.getCompletionRate();
+                if(attendance<0 || completion<0)message+=" "+clientID;
+                else  clientStatistics.add(new ClientStatistics(clientID,completion,attendance));
+            }
+            if(message.equals("there is an error in the details of client"))message="the of "+program.getTitle()+" is viewed";
+            return new ProgramStatistics(clientStatistics,message);
+        }
     }
 
 }
