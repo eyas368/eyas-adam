@@ -62,6 +62,7 @@ public class Admin {
                 stringBuilder.append(curLine).append("\n");
             }
             Files.write(Paths.get(path), stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         } catch (IOException e) {
@@ -99,6 +100,7 @@ public class Admin {
                 stringBuilder.append(curLine).append("\n");
             }
             Files.write(Paths.get(path), stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         } catch (IOException e) {
@@ -109,8 +111,10 @@ public class Admin {
     public void getUserBackFromArchive(boolean isClient){
         try {
             String path = "src/main/resources/" + (isClient ? "clients.txt" : "instructors.txt");
-            String string = new Scanner(new File("src/main/resources/test_archive.txt")).nextLine() + "\n";
+            Scanner scanner = new Scanner(new File("src/main/resources/test_archive.txt"));
+            String string = scanner.nextLine() + "\n";
             Files.write(Paths.get(path), string.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            scanner.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -137,7 +141,7 @@ public class Admin {
                 if (curLine.equals(string))
                     exists = true;
             }
-
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
