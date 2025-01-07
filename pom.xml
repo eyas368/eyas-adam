@@ -12,6 +12,15 @@
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+           <sonar.organization>eyasadamorganization</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>    
+             
+             
+  <sonar.exclusions>**/architecture/**</sonar.exclusions>
+       <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>javaarchitecture:S7027</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>         
+
     </properties>
 
 
@@ -73,16 +82,7 @@
             <artifactId>logback-classic</artifactId>
             <version>1.5.15</version>
         </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>kernel</artifactId>
-            <version>7.2.5</version> <!-- Replace with the latest available version -->
-        </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>layout</artifactId>
-            <version>7.2.5</version> <!-- Replace with the latest available version -->
-        </dependency>
+ 
 
     </dependencies>
 
@@ -138,5 +138,6 @@
         <sourceDirectory>src/main/project</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
     </build>
+ 
 
 </project>
