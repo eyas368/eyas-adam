@@ -20,6 +20,7 @@ public class Programs {
                     return true;
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -59,7 +60,7 @@ public class Programs {
 
                 programs.add(program);
         }
-
+        scanner.close();
     }
     public String CreateProgram(String title,  String level, String goal , String duration, String video,  String image,  String documents, String Price)  {
         for(Program program:programs){

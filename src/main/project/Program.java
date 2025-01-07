@@ -108,6 +108,8 @@ public class Program implements Cloneable{
         return true;
     }
 
-
- 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

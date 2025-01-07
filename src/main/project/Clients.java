@@ -204,6 +204,7 @@ public class Clients {
                     }
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e){
 
         }
@@ -222,6 +223,7 @@ public class Clients {
                     return false;
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e){
 
         }
@@ -247,6 +249,7 @@ public class Clients {
                 builder.append(curLine).append("\n");
             }
             Files.write(Paths.get("src/main/resources/programs_clients.txt"), builder.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e){
 
         } catch (IOException e) {
@@ -343,6 +346,7 @@ public class Clients {
                 stringBuilder.append(curLine).append("\n");
             }
             Files.write(path, stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e){
 
         } catch (IOException e) {
@@ -360,6 +364,7 @@ public class Clients {
                 if(array[0].equals(username))
                     return array[1];
             }
+            scanner.close();
         } catch (FileNotFoundException e){
 
         }
@@ -370,7 +375,7 @@ public class Clients {
         if(goBack){
             currentMenu = CLIENT_PROFILE_CODE;
             updateMenu();
-            return null;
+            return new ArrayList<>();
         }
         ArrayList<Program> programs = getAllPrograms();
         currentMenu = CLIENT_PROGRAMS_CODE;
@@ -413,6 +418,7 @@ public class Clients {
                 Program program = new Program(array);
                 programs.add(program);
             }
+            scanner.close();
         } catch (FileNotFoundException e){
 
         }
@@ -471,7 +477,7 @@ public class Clients {
                 if (array[0].equals(username))
                     exists = true;
             }
-
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -505,6 +511,7 @@ public class Clients {
             }
 
         }
+        scanner.close();
     }
     public Programs getPrograms(){return programs;}
 
@@ -522,7 +529,7 @@ public class Clients {
                         passwordCorrect = true;
                     }
             }
-
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -544,6 +551,7 @@ public class Clients {
                     return true;
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -587,6 +595,7 @@ public class Clients {
                 string.append("\n");
             }
             Files.write(Paths.get("src/main/resources/programs_clients.txt"), string.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         } catch (IOException e) {
@@ -605,6 +614,7 @@ public class Clients {
                     return true;
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -622,6 +632,7 @@ public class Clients {
                     return true;
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -640,6 +651,7 @@ public class Clients {
                     info.addAll(Arrays.asList(array).subList(2, 9));
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e){
 
         }
@@ -658,6 +670,7 @@ public class Clients {
                     info.addAll(Arrays.asList(array).subList(3, 6));
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
 
         }
@@ -677,7 +690,7 @@ public class Clients {
         }
         try {
             String string = "0," + activeClient + "," + program + "\n";
-            Files.write(Paths.get("src/main/resources/programs_clients.txt"), string.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            Files.writeString(Paths.get("src/main/resources/programs_clients.txt"), string, StandardOpenOption.APPEND);
         } catch (IOException e){
 
         }

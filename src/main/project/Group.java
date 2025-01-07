@@ -65,7 +65,7 @@ public class Group {
             }
 
         }
-
+        scanner.close();
     }
 
 

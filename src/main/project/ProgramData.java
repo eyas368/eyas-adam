@@ -6,10 +6,15 @@ public class ProgramData {
         this.value=value;
     }
     @Override
-    public boolean equals(Object programData1){
-        ProgramData programDatatemp=(ProgramData) programData1;
-        if(this.programTitle.equals(programDatatemp.programTitle)&&this.value==programDatatemp.value)return true;
-        return false;
-
+    public boolean equals(Object programData1) {
+        if (!(programData1 instanceof ProgramData)) {
+            return false;
+        }
+        ProgramData programDatatemp = (ProgramData) programData1;
+        return this.programTitle.equals(programDatatemp.programTitle) && this.value == programDatatemp.value;
+    }
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
