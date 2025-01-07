@@ -32,8 +32,7 @@ public class EditTheProgressOfAClient {
     @When("I edit the progress of client {string}")
     public void iEditTheProgressOfClient(String ID) throws IOException {
         // Write code here that turns the phrase above into concrete actions
-        UniversalMethods.getFile("src/main/resources/clients_with_progress.txt");
-        this.ID=ID;
+         this.ID=ID;
         actualMessage=clients.EditTheProgressOfAClient(type,value,ID);
         UniversalMethods.returnFile("src/main/resources/clients_with_progress.txt");
 

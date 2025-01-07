@@ -7,3 +7,6 @@ Feature: Deleting account data for instructors
   Scenario: Admin tries to delete an existing client instructor
     When admin enters instructor username "sameer_not_official"
     Then tell the admin that the deletion was  successful
+
+  Scenario: return file;
+    Then returnfiles;

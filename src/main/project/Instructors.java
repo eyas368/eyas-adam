@@ -1,13 +1,10 @@
-import java.io.File;
-import java.io.FileNotFoundException;
- import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Instructors {
@@ -51,13 +48,25 @@ public class Instructors {
 
 
     public static void addInstructorToFile(String username, String password){
-        try {
-            String string = username + "," + password + "\n";
-            Files.write(Paths.get("src/main/resources/instructors.txt"), string.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+        String string = username + "," + password + "\n";
+        Scanner scanner=new Scanner("src/main/resources/instructors.txt");
+        ArrayList<String> list=new ArrayList<>();
+        while (scanner.hasNextLine()){
+            list.add(scanner.nextLine());
         }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/instructors.txt"))) {
+            for(String string1:list){
+                writer.write(string1);
+                writer.newLine();
+            }
+            writer.write(string+","+list.size()+1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
+
+
 
     public static void removeInstructor(String username){
         StringBuilder string = new StringBuilder();

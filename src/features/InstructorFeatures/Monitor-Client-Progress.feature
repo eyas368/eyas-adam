@@ -27,3 +27,6 @@ Feature: Monitor Client Progress
     When I view the progress details for client "abc"
     Then I should see a warning message "Invalid client ID format"
 
+  Scenario: return file;
+    Then returnfiles;
+

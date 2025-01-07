@@ -21,3 +21,7 @@ Feature: Announce new programs or special offers
     When I send Announcement reminders to the client
     Then the system for announcement display "wrong Announcement"
 
+  Scenario: return file;
+    Then returnfiles;
+
+

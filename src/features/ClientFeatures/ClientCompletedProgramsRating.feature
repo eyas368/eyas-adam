@@ -34,3 +34,6 @@ Feature: Client program rating and reviewing
   Scenario: Client chose to go back or entered an invalid input format
     When Client "eyas" entered "go back"
     Then send client to "main menu"
+
+  Scenario: return file;
+    Then returnfiles;

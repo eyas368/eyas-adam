@@ -7,3 +7,6 @@ Feature: Deleting account data for clients
   Scenario: Admin tries to delete an existing client
     When admin enters username "eyas_not_real"
     Then tell the admin that the deletion was successful
+
+  Scenario: return file;
+    Then returnfiles;
