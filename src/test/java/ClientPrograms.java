@@ -28,13 +28,7 @@ public class ClientPrograms {
 
     @Then("show all programs available")
     public void show_all_programs_available(){
-        boolean equality = programs.size() == actualPrograms.size();
-        if (equality)
-            for(int i = 0; i < programs.size(); i++){
-                if(Objects.equals(programs.get(i), actualPrograms.get(i)))
-                    equality = false;
-            }
-        assertTrue(equality, "TEST FAILED: Filtered programs do not match expected results.");
+        assertEquals(programs, actualPrograms,"TEST FAILED: Filtered programs do not match expected results.");
     }
 
     @When("the client chooses {string} {string}")
