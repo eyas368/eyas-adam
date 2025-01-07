@@ -23,8 +23,7 @@ public class Program implements Cloneable{
     File image;
     File documents;
     int price;
-    public ArrayList<Client> clientsForThisProgram=new ArrayList<>();
-    Program(String title,  String level, String goal , int duration, File video,  File image,  File documents, int Price){
+     Program(String title,  String level, String goal , int duration, File video,  File image,  File documents, int Price){
         this.title = title;
         this.duration = duration;
         this.level = level;
