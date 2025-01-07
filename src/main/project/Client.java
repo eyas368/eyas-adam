@@ -63,44 +63,8 @@ public class Client {
 
     }
 
-    public ArrayList<Program> getPrograms(String levelFilter, String focusFilter) throws FileNotFoundException {
-        ArrayList<Program> programs = getAllPrograms();
-        ArrayList<Program> tempList = new ArrayList<>();
 
-        if(levelFilter != null){
-            for(Program program: programs){
-                if(levelFilter.equalsIgnoreCase(program.getLevel())){
-                    tempList.add(program);
-                }
-            }
-            programs = new ArrayList<>(tempList);
-        }
-        if (focusFilter != null){
-            tempList = new ArrayList<>();
-            for(Program program: programs){
-                if(focusFilter.equalsIgnoreCase(program.getFocus())){
-                    tempList.add(program);
-                }
-            }
-            programs = new ArrayList<>(tempList);
-        }
-        return programs;
-    }
-
-    public ArrayList<Program> getAllPrograms() throws FileNotFoundException {
-        ArrayList<Program> programs = new ArrayList<>();
-        File file = new File("src/main/resources/programs.txt");
-        Scanner scanner = new Scanner(file);
-        String curLine;
-        while (scanner.hasNextLine()){
-            curLine = scanner.nextLine();
-            String [] array =  curLine.split(",");
-            Program program = new Program(array);
-            programs.add(program);
-        }
-        scanner.close();
-        return programs;
-    }
+< 
 
     private String SearchForClientInProgress(int id) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(clientsWithProgressPath));
@@ -209,24 +173,8 @@ public class Client {
 
 
 
-    public int getNumOfDaysAttended() throws FileNotFoundException {
+ 
 
-
-        String recordString =SearchForClientInProgress(this.ID);
-        if(!recordString.isEmpty()){
-            String[]array= recordString.split(",");
-            if(array[0].equals(this.ID+"")){
-                if(UniversalMethods.isInteger(array[1])){
-                    this.numOfDaysAttended= Integer.parseInt(array[1]);
-                    return this.numOfDaysAttended;
-                }
-                else return -1;
-
-            }
-        }
-
-        return -2;
-    }
 
     public void setNumOfDaysAttended(int daysAttended) throws IOException {
          numOfDaysAttended=daysAttended;
@@ -235,24 +183,8 @@ public class Client {
     }
 
 
-    public int getNumOfDaysMessed() throws FileNotFoundException {
 
-
-        String recordString =SearchForClientInProgress(this.ID);
-        if(!recordString.isEmpty()){
-            String[]array= recordString.split(",");
-            if(array[0].equals(this.ID+"")){
-                if(UniversalMethods.isInteger(array[2])){
-                    this.numOfDaysMessed= Integer.parseInt(array[2]);
-                    return this.numOfDaysMessed;
-                }
-                else return -1;
-
-            }
-        }
-
-        return -2;
-    }
+ 
 
     public void setNumOfDaysMessed(int daysMessed) throws IOException {
          numOfDaysMessed=daysMessed;

@@ -20,3 +20,6 @@ Feature: Creation of accounts for clients
     Then tell the user that the account was created successfully
     Then sign the user in with username "user123"
     Then add the user "user123" to the list of clients registered in the program "Weight Loss Basic"
+
+  Scenario: return file;
+    Then returnfiles;

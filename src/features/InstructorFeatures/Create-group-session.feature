@@ -36,3 +36,6 @@ Feature: create a new group.
     Given i have instructor "12" with schedules "online"  at time "2" and group id "1"
     When i create a new group
     And the system should display a message for create "this group already exist"
+
+  Scenario: return file;
+    Then returnfiles;

@@ -14,3 +14,6 @@ Feature: Program Enrollment for Clients
     When A registered client "eyas" tries to enroll in a program "Muscle Mastery"
     Then tell client that they were successfully enrolled in the program
     Then send  client to "main menu"
+
+  Scenario: return file;
+    Then returnfiles;

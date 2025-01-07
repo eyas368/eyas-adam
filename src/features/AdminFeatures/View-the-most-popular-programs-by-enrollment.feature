@@ -25,3 +25,6 @@ Feature: Display statistics for programs sorted by different attributes
       | program7     | 10           |
     When I request the programs sorted by price
     Then the programs should be sorted in descending order of price
+
+  Scenario: return file;
+    Then returnfiles;

@@ -7,7 +7,5 @@ public class ClientStatistics {
         this.completion=completion;
         this.clientID=clientID;
     }
-    public int getClientID(){return  clientID;}
-    public int getCompletion(){return completion;}
-    public int getAttendance(){return attendance;}
+
 }

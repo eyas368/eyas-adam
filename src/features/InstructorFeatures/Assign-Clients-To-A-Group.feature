@@ -27,3 +27,6 @@ Feature: Assign clients to a group
     When i add the client to the group
     Then the client will not be added
     And the system display the message "this client does not exist"
+
+  Scenario: return file;
+    Then returnfiles;

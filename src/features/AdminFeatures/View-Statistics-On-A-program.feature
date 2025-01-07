@@ -33,4 +33,7 @@ Feature: View Statistics On A program
     Then the system should not view any data
     And the message "this program does not have any clients";
 
+  Scenario: return file;
+    Then returnfiles;
+
 

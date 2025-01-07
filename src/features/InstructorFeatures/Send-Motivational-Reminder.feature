@@ -20,7 +20,7 @@ Feature: Send-Motivational-Reminder
     Then the client "<client>"  shouled reserve the "<reminder>" and the system display "Motivational Reminder has been sent"
     Examples:
       | client | reminder    |
-      |  1     |  no reserve |
+      |  1     |  reserve    |
       |  2     |  no reserve |
       |  3     |  reserve    |
       |  4     |  no reserve |
@@ -55,3 +55,6 @@ Feature: Send-Motivational-Reminder
     And a client's completion rate is below "150"
     When I send motivational reminders to the client
     Then the system display "wrong format of limit"
+
+  Scenario: return file;
+    Then returnfiles;

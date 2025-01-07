@@ -16,4 +16,6 @@ Feature: Client login
     Then Tell the client that they were not logged in successfully due to password issue
     Then redirect client to "sign out"
 
+  Scenario: return file;
+    Then returnfiles;
 

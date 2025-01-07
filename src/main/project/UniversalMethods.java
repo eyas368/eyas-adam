@@ -3,30 +3,20 @@ import java.io.IOException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.HashMap;
+
 
 
 public class UniversalMethods {
-    public static  Clients clients;
-    public static Programs programs;
-    public static Groups groups;
-    public static Admin admin;
-    public static Instructors instructors;
 
-    static {
-        try {
-            clients = new Clients();
-            programs=new Programs();
-            groups=new Groups();
-            admin=new Admin();
-            instructors=new Instructors();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     public static Stack<File>tempfiles=new Stack<>();
+    public static Stack<File>tempfiles1=new Stack<>();
+
+
+    public static HashMap<String, File> fileMap = new HashMap<>();
+
     private static int index=0;
     public static boolean isInteger(String str) {
         try {
@@ -36,31 +26,32 @@ public class UniversalMethods {
             return false;
         }
     }
-    public static void getFile(String path) throws IOException {
-        File originalFile = new File(path);
-        File tempFile =new File("src/main/resources/tempfile"+(index++)+".txt");
-        if(tempFile.createNewFile()){}
+    public static void afterAllScenarios() {
+        if(fileMap.isEmpty()){
+            fileMap.put("src/main/resources/programsssTemp.txt",new File("src/main/resources/programsssTemp.txt"));
+            fileMap.put("src/main/resources/instructorsTemp.txt",new File("src/main/resources/instructorsTemp.txt"));
+            fileMap.put("src/main/resources/groupsTemp.txt",new File("src/main/resources/groupsTemp.txt"));
+            fileMap.put("src/main/resources/clients_with_progressTemp.txt",new File("src/main/resources/clients_with_progressTemp.txt"));
 
-        tempfiles.push(tempFile);
-
-        try {
-            // Step 1: Copy contents from original file to temp file
-            copyFile(originalFile, tempFile);
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        UniversalMethods.returnFile("src/main/resources/programsss.txt");
+        UniversalMethods.returnFile("src/main/resources/instructors.txt");
+        UniversalMethods.returnFile("src/main/resources/groups.txt");
+        UniversalMethods.returnFile("src/main/resources/clients_with_progress.txt");
     }
+
+
     public static void returnFile(String path){
         File originalFile = new File(path);
-        File tempFile =tempfiles.pop();
+        String tempFilePath=path.split("\\.")[0]+="Temp"+"."+path.split("\\.")[1];
+        System.out.println(tempFilePath);
 
         try {
             // Step 1: Copy contents from original file to temp file
+            File tempFile=fileMap.get(tempFilePath);
+            if(tempFile==null)System.out.println("fkhfdbfkeb");
             copyFile(tempFile, originalFile);
-            boolean __ = tempFile.delete();
-            if (!__)
-                throw new IOException();
+ 
 
         } catch (IOException e) {
             e.printStackTrace();

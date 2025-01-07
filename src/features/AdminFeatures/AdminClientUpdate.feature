@@ -11,3 +11,6 @@ Feature: Updating account data for clients
   Scenario: Admin tries to change the password to a good one
     When admin enters username "adam" and password "Son_Goku_real"
     Then tell the admin that the update to the password was successful
+
+  Scenario: return file;
+    Then returnfiles;
