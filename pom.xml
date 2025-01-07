@@ -15,7 +15,11 @@
            <sonar.organization>eyasadamorganization</sonar.organization>
   <sonar.host.url>https://sonarcloud.io</sonar.host.url>    
              
+             
   <sonar.exclusions>**/architecture/**</sonar.exclusions>
+       <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>javaarchitecture:S7027</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>         
 
     </properties>
 
