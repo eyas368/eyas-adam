@@ -6,24 +6,7 @@ import java.util.Stack;
 
 
 public class UniversalMethods {
-    public static  Clients clients;
-    public static Programs programs;
-    public static Groups groups;
-    public static Admin admin;
-    public static Instructors instructors;
-
-    static {
-        try {
-            clients = new Clients();
-            programs=new Programs();
-            groups=new Groups();
-            admin=new Admin();
-            instructors=new Instructors();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+ 
 
 
     public static Stack<File>tempfiles=new Stack<>();
