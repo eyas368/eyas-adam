@@ -176,14 +176,14 @@ public class Admin {
                 ArrayList<Program> programsTemp=new ArrayList<>(programs.getPrograms());
                 programsTemp.sort(Comparator.comparingInt((Program p)-> {
                     try {
-                        return UniversalMethods.getClients(clients, programs,p).size();
+                        return getClients(clients, programs,p).size();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
                 }).reversed().thenComparing(Program::getTitle));
                 for(Program program:programsTemp) {
                     try {
-                        programsToView.add(new ProgramData(program.getTitle(),UniversalMethods.getClients(clients,programs,program).size()));
+                        programsToView.add(new ProgramData(program.getTitle(),getClients(clients,programs,program).size()));
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
@@ -209,7 +209,7 @@ public class Admin {
         }
         else{
             ArrayList<Client> clientsForTheProgram;
-            if((clientsForTheProgram=UniversalMethods.getClients(clients, programs , program)).isEmpty()){
+            if((clientsForTheProgram= getClients(clients, programs , program)).isEmpty()){
                 message="this program does not have any clients";
                 clientStatistics=new ArrayList<>();
                 return new ProgramStatistics(clientStatistics,message);
@@ -230,5 +230,12 @@ public class Admin {
             return new ProgramStatistics(clientStatistics,message);
         }
     }
+    public static ArrayList<Client>  getClients(Clients clients,Programs programs,Program program) throws FileNotFoundException {
+        program.clientsForThisProgram.clear();
+        for(Client client:clients.getClients())if(client.getProgram(programs)!=null&&client.getProgram(programs).getTitle().equals(program.getTitle()))program.clientsForThisProgram.add(client);
+        return program.clientsForThisProgram;
+    }
+
+
 
 }

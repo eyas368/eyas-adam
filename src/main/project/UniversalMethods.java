@@ -80,12 +80,6 @@ public class UniversalMethods {
         }
     }
 
-        public static ArrayList<Client>  getClients(Clients clients,Programs programs,Program program) throws FileNotFoundException {
-        program.clientsForThisProgram.clear();
-        for(Client client:clients.getClients())if(client.getProgram(programs)!=null&&client.getProgram(programs).getTitle().equals(program.getTitle()))program.clientsForThisProgram.add(client);
-        return program.clientsForThisProgram;
-    }
-
 
 
 
