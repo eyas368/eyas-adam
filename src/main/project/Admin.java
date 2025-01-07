@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
+
+
 public class Admin {
 
     public static int UPDATE_NO_USER_CODE = 0;
@@ -152,35 +150,8 @@ public class Admin {
         else if(type==1)GenerateRevenueReports(  clients,  programs, path);
     }
 
-
-
-
-
-
     private void GenerateProgressReports(Clients clients,Programs programs,String path) throws FileNotFoundException {
 
-        String pdfPath = path; // Output PDF file path
-
-
-        try (PdfWriter writer = new PdfWriter(pdfPath);
-             PdfDocument pdfDocument = new PdfDocument(writer);
-             Document document = new Document(pdfDocument)) {
-
-            // Adding content to the PDF
-            document.add(new Paragraph(String.format("%-" + 38 + "s","client id") +" | "+String.format("%-" + 32 + "s","CompletionRate")+" | " +String.format("%-" + 36 + "s","AttendanceRecord")));
-            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-
-            for(Client client:clients.getClients()) {
-                String temp = String.format("%-" + 40 + "s", client.getID()+"") + "  |  " + String.format("%-" + 40 + "s", client.getCompletionRate()==-1?"missed":client.getCompletionRate()+"") + "  |  " + String.format("%-" + 40 + "s", client.getAttendanceRecord()==-1?"missed":client.getAttendanceRecord()+"");
-                document.add( new Paragraph(temp));
-
-                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
 
@@ -190,35 +161,11 @@ public class Admin {
 
 
     private void GenerateRevenueReports(Clients clients,Programs programs, String path){
-        String pdfPath = path; // Output PDF file path
 
-        try (PdfWriter writer = new PdfWriter(pdfPath);
-             PdfDocument pdfDocument = new PdfDocument(writer);
-             Document document = new Document(pdfDocument)) {
-
-            // Adding content to the PDF
-            document.add(new Paragraph(String.format("%-" + 40 + "s","program") +" | "+String.format("%-" + 36 + "s","#ofClients")+" | " +String.format("%-" + 36 + "s","price")));
-            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-            int sum=0;
-            for(Program program:programs.getPrograms()) {
-                String temp = String.format("%-" + 40 + "s", program.getTitle()) + "  |  " + String.format("%-" + 40 + "s", getClients(clients,programs ,program).size()+"") + "  |  " + String.format("%-" + 40 + "s", program.getPrice()+"");
-                sum+=getClients(clients,programs,program).size()*program.getPrice();
-                document.add( new Paragraph(temp));
-                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-
-            }
-            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
-            document.add(new Paragraph("total:"+sum));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
 
     }
-
     public String ViewTheMostPopularProgramsByEnrollment(String type,ArrayList<ProgramData>  programsToView,Clients clients, Programs programs){
         if(!UniversalMethods.isInteger(String.valueOf(type)))return "wrong type";
         else {
@@ -284,8 +231,8 @@ public class Admin {
         }
     }
     public static ArrayList<Client>  getClients(Clients clients,Programs programs,Program program) throws FileNotFoundException {
-        ArrayList<Client> clientsForThisProgram=new ArrayList<>();
-        for(Client client:clients.getClients())if(client.getProgram(programs)!=null&&client.getProgram(programs).getTitle().equals(program.getTitle()))clientsForThisProgram.add(client);
+          ArrayList<Client> clientsForThisProgram=new ArrayList<>();
+         for(Client client:clients.getClients())if(client.getProgram(programs)!=null&&client.getProgram(programs).getTitle().equals(program.getTitle()))clientsForThisProgram.add(client);
         return clientsForThisProgram;
     }
 

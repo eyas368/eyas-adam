@@ -41,8 +41,9 @@ public class UniversalMethods {
         try {
             // Step 1: Copy contents from original file to temp file
             copyFile(tempFile, originalFile);
-            tempFile.delete();
-
+            boolean __ = tempFile.delete();
+            if (!__)
+                throw new IOException();
 
         } catch (IOException e) {
             e.printStackTrace();
