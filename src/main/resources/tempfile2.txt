@@ -1,9 +1,0 @@
-waleed123,123456789,1
-sameer_official,22222222,2
-sameer_not_official,22222222,3
-waleed123,123456789,4
-sameer_official,22222222,5
-sameer_not_official,22222222,6
-waleed123,123456789,7
-sameer_official,22222222,8
-sameer_not_official,22222222,9
