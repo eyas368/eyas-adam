@@ -223,70 +223,7 @@ public class Programs {
     }
     public ArrayList<Program> getPrograms(){return  programs;}
 
-    public String ViewTheMostPopularProgramsByEnrollment(String type,ArrayList<ProgramData>  programsToView,Clients clients){
-         if(!UniversalMethods.isInteger(String.valueOf(type)))return "wrong type";
-        else {
-            int Type=Integer.parseInt(type);
-            if(Type<0||Type>1)return "wrong type";
-            if(Type==0){
-                programsToView.clear();
-                ArrayList<Program> programsTemp=new ArrayList<>(programs);
-                programsTemp.sort(Comparator.comparingInt((Program p)-> {
-                    try {
-                        return p.getClients(clients,this).size();
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                }).reversed().thenComparing(Program::getTitle));
-                for(Program program:programsTemp) {
-                    try {
-                         programsToView.add(new ProgramData(program.getTitle(),program.getClients(clients,this).size()));
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                return "viewed successfully";
-            }
-            programsToView.clear();
-            ArrayList<Program> programsTemp=new ArrayList<>(programs);
-            programsTemp.sort(Comparator.comparingInt(Program::getPrice).reversed().thenComparing(Program::getTitle));
-            for(Program program:programsTemp)programsToView.add(new ProgramData(program.getTitle(),program.getPrice()));
-            return "viewed successfully";
-        }
 
-    }
-    public ProgramStatistics ViewStatisticsOnAProgram(String programTitle ,Clients clients) throws FileNotFoundException {
-         String message;
-        ArrayList<ClientStatistics> clientStatistics;
-         Program program=this.searchForProgram(programTitle);
-        if(program==null){
-            message="this program does not exist";
-            clientStatistics=new ArrayList<>();
-            return new ProgramStatistics(clientStatistics,message);
-        }
-        else{
-            ArrayList<Client> clientsForTheProgram;
-            if((clientsForTheProgram=program.getClients(clients, this)).isEmpty()){
-                message="this program does not have any clients";
-                clientStatistics=new ArrayList<>();
-                return new ProgramStatistics(clientStatistics,message);
-            }
-            clientStatistics=new ArrayList<>();
-            int clientID;
-            int attendance;
-            int completion;
-            message="there is an error in the details of client";
-            for(Client client:clientsForTheProgram){
-                clientID=client.getID();
-                attendance=client.getAttendanceRecord();
-                completion=client.getCompletionRate();
-                if(attendance<0 || completion<0)message+=" "+clientID;
-                else  clientStatistics.add(new ClientStatistics(clientID,completion,attendance));
-            }
-            if(message.equals("there is an error in the details of client"))message="the of "+program.getTitle()+" is viewed";
-            return new ProgramStatistics(clientStatistics,message);
-        }
-    }
 
 
 

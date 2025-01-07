@@ -6,6 +6,26 @@ import java.util.Stack;
 
 
 public class UniversalMethods {
+    public static  Clients clients;
+    public static Programs programs;
+    public static Groups groups;
+    public static Admin admin;
+    public static Instructors instructors;
+
+    static {
+        try {
+            clients = new Clients();
+            programs=new Programs();
+            groups=new Groups();
+            admin=new Admin();
+            instructors=new Instructors();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static Stack<File>tempfiles=new Stack<>();
     private static int index=0;
     public static boolean isInteger(String str) {
@@ -59,6 +79,14 @@ public class UniversalMethods {
             }
         }
     }
+
+        public static ArrayList<Client>  getClients(Clients clients,Programs programs,Program program) throws FileNotFoundException {
+        program.clientsForThisProgram.clear();
+        for(Client client:clients.getClients())if(client.getProgram(programs)!=null&&client.getProgram(programs).getTitle().equals(program.getTitle()))program.clientsForThisProgram.add(client);
+        return program.clientsForThisProgram;
+    }
+
+
 
 
 }

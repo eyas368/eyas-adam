@@ -10,16 +10,18 @@ public class ViewStatisticsOnAProgram {
     private Clients clients;
     private Programs programs;
     private String programTitle;
+    private Admin admin;
     private ArrayList<ClientStatistics> clientStatisticsExpected;
     private ArrayList<ClientStatistics> clientStatisticsActual;
     private String actualMessage;
     private String expectedMessage;
 
-    public ViewStatisticsOnAProgram(Clients clients,Programs programs){
+    public ViewStatisticsOnAProgram(Clients clients,Programs programs,Admin admin){
         this.clients=clients;
         this.programs=programs;
         clientStatisticsExpected=new ArrayList<>();
         clientStatisticsActual=new ArrayList<>();
+        this.admin=admin;
 
     }
 
@@ -46,7 +48,7 @@ public class ViewStatisticsOnAProgram {
     @When("i view the Statistics of this program")
     public void iViewTheStatisticsOfThisProgram() throws FileNotFoundException {
         // Write code here that turns the phrase above into concrete actions
-        ProgramStatistics programStatistics=programs.ViewStatisticsOnAProgram(programTitle,clients);
+        ProgramStatistics programStatistics=admin.ViewStatisticsOnAProgram(programTitle,clients,programs);
         clientStatisticsActual=programStatistics.getClientStatistics();
         actualMessage=programStatistics.getMessage();
 
