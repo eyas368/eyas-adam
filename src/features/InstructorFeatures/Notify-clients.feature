@@ -106,3 +106,6 @@ Feature: Notify clients about changes to program
     Given I have an "programNEW"
     When I notify for program that does not exist
     Then the system shows "this program does not exist"
+
+  Scenario: return file;
+    Then returnfiles;

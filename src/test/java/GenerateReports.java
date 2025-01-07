@@ -122,8 +122,9 @@ public class GenerateReports {
     }
 
 
+    @Then("returnfiles;")
+    public void returnfiles() {
+        UniversalMethods.afterAllScenarios();
 
-
-
-
+    }
 }

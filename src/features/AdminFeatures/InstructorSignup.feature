@@ -12,3 +12,6 @@ Feature: Instructor Signup
     When instructor entered username "user123" and password "555555555"
     Then tell the instructor that the account was created successfully
     Then add the instructor "user123" to the list of instructors
+
+  Scenario: return file;
+    Then returnfiles;

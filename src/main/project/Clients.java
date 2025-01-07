@@ -766,16 +766,7 @@ public class Clients {
             }
         }
     }
-    private void writeToFile() throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/clients_with_progress.txt"))) {
-            for(Client client:clients){
-                String clientToFile=client.getID()+","+client.getNumOfDaysAttended()+","+client.getNumOfDaysMessed()+","+client.getCompletionRate()+","+client.getMotivationalReminder();
-                writer.write(clientToFile);
-                writer.newLine();
-            }
-        }
 
-        }
 
     public String SendMotivationalReminder(String limit) throws IOException {
         if(!UniversalMethods.isInteger(limit))return "wrong format of limit";

@@ -30,3 +30,6 @@ Feature: Approval of articles, tips, recipes from instructors
     Given admin approved
     When admin received "recipe" "How to make a kito-friendly salad ... " from instructor "sameer_official"
     Then save the "recipe" "How to make a kito-friendly salad ... " from instructor "sameer_official"
+
+  Scenario: return file;
+    Then returnfiles;

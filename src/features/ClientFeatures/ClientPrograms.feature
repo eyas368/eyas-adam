@@ -24,3 +24,6 @@ Feature: Browse fitness programs by filters
   Scenario: Client chose to go back
     When the client choose to go back
     Then take the client to the main profile
+
+  Scenario: return file;
+    Then returnfiles;

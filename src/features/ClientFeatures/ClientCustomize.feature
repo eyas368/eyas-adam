@@ -76,3 +76,6 @@ Feature: Customizing Client's profile data
     When client entered "25" "80" "28" "23" "72" "diary-free food?" "well, diary" for the values respectively
     Then Tell the client that the update was successful
     Then send client to "main menu" customize
+
+  Scenario: return file;
+    Then returnfiles;

@@ -58,3 +58,6 @@ Feature: Client main menu
   Scenario: Client chose a wrong input (text version)
     When client enters "delete self"
     Then send client to "main menu" menu
+
+  Scenario: return file;
+    Then returnfiles;

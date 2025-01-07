@@ -73,3 +73,6 @@ Feature: Program Management
       | C:\\Users\\Eyas\\Desktop\\software\\L4.mp4                | C:\\Users\\Eyas\\Desktop\\810838.png        | C:\\Users\\Eyas\\Desktop                  | doc/wrong file                                                      | program6    |
       | C:\\Users\\Eyas\\Desktop\\software\\L6.mp4                | C:\\Users\\Eyas\\Desktop\\810835.png        | C:\\Users\\Eyas\\Desktop\\OS.pdf          | video/wrong file & image/wrong file                                 | program6    |
       | C:\\Users\\Eyas\\Desktop\\software\\L.mp4                 | C:\\Users\\Eyas\\Desktop\\names.txt         | C:\\Users\\Eyas\\Desktop\\name.txt        | video/wrong file & image/wrong extension & doc/wrong file           | program7 |
+
+  Scenario: return file;
+    Then returnfiles;

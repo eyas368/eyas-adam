@@ -39,3 +39,6 @@ Feature: Edit the progress of a client
       | 3          | 150      | 5        |  invalid data must be between 0 and 100            |
       | 3          | vv       | 5        |  invalid data must be between 0 and 100            |
       | vv         | -40      | 1        |  invalid type                                      |
+
+  Scenario: return file;
+    Then returnfiles;
