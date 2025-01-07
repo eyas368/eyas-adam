@@ -6,10 +6,11 @@ import java.util.Stack;
 import java.util.HashMap;
 
 
-
+ 
+=======
 public class UniversalMethods {
-
-
+ 
+ 
 
     public static Stack<File>tempfiles=new Stack<>();
     public static Stack<File>tempfiles1=new Stack<>();
