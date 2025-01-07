@@ -16,7 +16,7 @@ public class Client {
      private String programTitle;
      private String Notification;
      private String Announcement;
-
+     private String clientsWithProgressPath = "src/main/resources/clients_with_progress.txt";
     public Client(int ID,String programTitle){
         this.ID=ID;
         this.programTitle=programTitle;
@@ -28,7 +28,7 @@ public class Client {
 
     private void writeToFile(int id,int type, String value) throws IOException {
 
-        File file = new File("src/main/resources/clients_with_progress.txt");
+        File file = new File(clientsWithProgressPath);
         Scanner scanner = new Scanner(file);
         String curLine;
         ArrayList<String> dataToFile=new ArrayList<>();
@@ -53,8 +53,8 @@ public class Client {
             dataToFile.add(curLine);
 
         }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/clients_with_progress.txt"))) {
+        scanner.close();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(clientsWithProgressPath))) {
             for(String line:dataToFile){
                 writer.write(line);
                 writer.newLine();
@@ -98,19 +98,21 @@ public class Client {
             Program program = new Program(array);
             programs.add(program);
         }
+        scanner.close();
         return programs;
     }
 
     private String SearchForClientInProgress(int id) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("src/main/resources/clients_with_progress.txt"));
+        Scanner scanner = new Scanner(new File(clientsWithProgressPath));
         String curLine = "";
         while (scanner.hasNextLine()) {
             curLine = scanner.nextLine();
             String[] array = curLine.split(",");
-            if (array[0].equals(this.ID + "")) {
+            if (array[0].equals(id + "")) {
                 break;
             }
         }
+        scanner.close();
         return curLine;
 
     }
@@ -119,9 +121,9 @@ public class Client {
 
     public Program getProgram(Programs programs) throws FileNotFoundException {
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(!array[5].equals("---")){
                     programTitle=array[5];
@@ -157,9 +159,9 @@ public class Client {
     public int getAttendanceRecord() throws FileNotFoundException {
 
 
-             String record =SearchForClientInProgress(this.ID);
-             if(!record.isEmpty()){
-                 String[]array=record.split(",");
+             String recordString =SearchForClientInProgress(this.ID);
+             if(!recordString.isEmpty()){
+                 String[]array= recordString.split(",");
                  if(array[0].equals(this.ID+"")){
                      if(UniversalMethods.isInteger(array[1]))this.numOfDaysAttended= Integer.parseInt(array[1]);
                      else return -1;
@@ -183,9 +185,9 @@ public class Client {
     public int getCompletionRate() throws FileNotFoundException {
 
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(UniversalMethods.isInteger(array[3])){
                     this.CompletionRate= Integer.parseInt(array[3]);
@@ -210,9 +212,9 @@ public class Client {
     public int getNumOfDaysAttended() throws FileNotFoundException {
 
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(UniversalMethods.isInteger(array[1])){
                     this.numOfDaysAttended= Integer.parseInt(array[1]);
@@ -236,9 +238,9 @@ public class Client {
     public int getNumOfDaysMessed() throws FileNotFoundException {
 
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(UniversalMethods.isInteger(array[2])){
                     this.numOfDaysMessed= Integer.parseInt(array[2]);
@@ -264,9 +266,9 @@ public class Client {
     public String getMotivationalReminder() throws FileNotFoundException {
 
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(array[4].equals("no reserve")||array[4].equals("reserve")){
                     this.MotivationalReminder= array[4];
@@ -293,9 +295,9 @@ public class Client {
     public String getNotification() throws FileNotFoundException {
 
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(array[6].equals("no notification")||array[6].equals("update")||array[6].equals("remove")){
                     this.Notification= array[6];
@@ -318,9 +320,9 @@ public class Client {
 
     public String getAnnouncement() throws FileNotFoundException {
 
-        String record =SearchForClientInProgress(this.ID);
-        if(!record.isEmpty()){
-            String[]array=record.split(",");
+        String recordString =SearchForClientInProgress(this.ID);
+        if(!recordString.isEmpty()){
+            String[]array= recordString.split(",");
             if(array[0].equals(this.ID+"")){
                 if(array[7].equals("no announcement")||array[7].split(":")[0].equals("new program")||array[7].split(":")[0].equals("new offer")){
                     this.Announcement= array[7];

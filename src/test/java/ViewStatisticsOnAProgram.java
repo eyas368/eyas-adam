@@ -75,7 +75,7 @@ public class ViewStatisticsOnAProgram {
     @Then("the system should view the data")
     public void theSystemShouldViewTheData() {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(clientStatisticsExpected , clientStatisticsExpected, "TEST FAILED: Filtered programs do not match expected results.");
+        assertEquals(clientStatisticsExpected , clientStatisticsActual, "TEST FAILED: Filtered programs do not match expected results.");
     }
 
 

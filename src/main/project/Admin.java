@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -62,6 +63,7 @@ public class Admin {
                 stringBuilder.append(curLine).append("\n");
             }
             Files.write(Paths.get(path), stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         } catch (IOException e) {
@@ -98,6 +100,7 @@ public class Admin {
                 }
                 stringBuilder.append(curLine).append("\n");
             }
+            scanner.close();
             Files.write(Paths.get(path), stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
@@ -109,8 +112,10 @@ public class Admin {
     public void getUserBackFromArchive(boolean isClient){
         try {
             String path = "src/main/resources/" + (isClient ? "clients.txt" : "instructors.txt");
-            String string = new Scanner(new File("src/main/resources/test_archive.txt")).nextLine() + "\n";
-            Files.write(Paths.get(path), string.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            Scanner scanner = new Scanner(new File("src/main/resources/test_archive.txt"));
+            String string = scanner.nextLine() + "\n";
+            Files.writeString(Paths.get(path), string, StandardOpenOption.APPEND);
+            scanner.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -137,7 +142,7 @@ public class Admin {
                 if (curLine.equals(string))
                     exists = true;
             }
-
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -166,7 +171,7 @@ public class Admin {
 
 
     }
-    public String ViewTheMostPopularProgramsByEnrollment(String type,ArrayList<ProgramData>  programsToView,Clients clients, Programs programs){
+    public String ViewTheMostPopularProgramsByEnrollment(String type, List<ProgramData> programsToView, Clients clients, Programs programs){
         if(!UniversalMethods.isInteger(String.valueOf(type)))return "wrong type";
         else {
             int Type=Integer.parseInt(type);

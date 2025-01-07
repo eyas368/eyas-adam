@@ -38,7 +38,7 @@ public class Instructors {
                 if (array[0].equals(username))
                     exists = true;
             }
-
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -74,6 +74,7 @@ public class Instructors {
                 string.append("\n");
             }
             Files.write(Paths.get("src/main/resources/instructors.txt"), string.toString().getBytes(StandardCharsets.UTF_8));
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         } catch (IOException e) {
@@ -93,6 +94,7 @@ public class Instructors {
                  instructors.add(instructor);
              }
         }
+        scanner.close();
     }
     public Instructor searchForInstructor(int ID){
         for (Instructor instructor:instructors)if(instructor.getInstructorID()==ID)return instructor;
