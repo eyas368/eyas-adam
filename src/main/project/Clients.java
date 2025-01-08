@@ -10,10 +10,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
-import io.cucumber.java.be.I;
-import io.cucumber.java.sl.In;
-
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,6 +32,7 @@ public class Clients {
     static int CLIENT_PROGRAMS_CODE = 5;
     static int CLIENT_REVIEW_CODE = 6;
     static int CLIENT_PROGRAMS_JOIN_CODE = 7;
+    static int CLIENT_PROGRAMS_ENROLLMENT_CODE = 7;
 
     public static int SUCCESS_CODE = 0;
     public static int ERROR_CODE_AGE_N = 1;
@@ -121,8 +118,22 @@ public class Clients {
             "join a program"
     };
 
+
     public String activeClient;
+
+    public void setCurrentMenu(int currentMenu) {
+        this.currentMenu = currentMenu;
+    }
+
     public int currentMenu;
+    
+    public String getActiveClient() {
+        return activeClient;
+    }
+
+    public int getCurrentMenu() {
+        return currentMenu;
+    }
 
     public void setActiveClient(String username){
         activeClient = username;
@@ -145,7 +156,7 @@ public class Clients {
             currentMenu = 7;
         else
             currentMenu = 2;
-        updateMenu();
+        
  
 
  
@@ -154,39 +165,39 @@ public class Clients {
     public String writeReview(String program, String rating, String review, String suggestion, boolean goBack){
         if(goBack){
             currentMenu = CLIENT_PROFILE_CODE;
-            updateMenu();
+            
             return REVIEW_REPLY_MESSAGES[REVIEW_INVALID_INPUT_MESSAGE];
         }
         if(this.UserDidNotCompleteProgram(program)){
             currentMenu = CLIENT_REVIEW_CODE;
-            updateMenu();
+            
             return REVIEW_REPLY_MESSAGES[DID_NOT_COMPLETE_PROGRAM_MESSAGE];
         }
         if(isNotInteger(rating)){
             currentMenu = CLIENT_REVIEW_CODE;
-            updateMenu();
+            
             return REVIEW_REPLY_MESSAGES[RATING_NOT_NUMERICAL_MESSAGE];
         }
         if(Integer.parseInt(rating) > 10 || Integer.parseInt(rating) < 0){
             currentMenu = CLIENT_REVIEW_CODE;
-            updateMenu();
+            
             return REVIEW_REPLY_MESSAGES[RATING_OUTSIDE_RANGE_MESSAGE];
         }
         if(Integer.parseInt(rating) >= 0 && Integer.parseInt(rating) <= 3){
             currentMenu = CLIENT_PROFILE_CODE;
             writeReviewToFile(program, rating, review, suggestion);
-            updateMenu();
+            
             return REVIEW_REPLY_MESSAGES[REVIEW_BAD_MESSAGE];
         }
         if(Integer.parseInt(rating) > 3 && Integer.parseInt(rating) <= 7){
             currentMenu = CLIENT_PROFILE_CODE;
             writeReviewToFile(program, rating, review, suggestion);
-            updateMenu();
+            
             return REVIEW_REPLY_MESSAGES[REVIEW_OKAY_MESSAGE];
         }
         currentMenu = CLIENT_PROFILE_CODE;
         writeReviewToFile(program, rating, review, suggestion);
-        updateMenu();
+        
         return REVIEW_REPLY_MESSAGES[REVIEW_GOOD_MESSAGE];
     }
 
@@ -260,58 +271,58 @@ public class Clients {
     public String updateValues(String age, String weight, String BMI, String goalBMI, String goalWeight, String preferences, String restrictions){
         currentMenu = CLIENT_INFO_CHANGE_CODE;
         if(isNotInteger(age)){
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_AGE_N];
         }
 
         if(13 > Integer.parseInt(age) || Integer.parseInt(age) > 73) {
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_AGE_R];
         }
 
         if(isNotInteger(weight)){
 
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_WEIGHT_N];
         }
 
         if(40 > Integer.parseInt(weight) || Integer.parseInt(weight) > 240) {
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_WEIGHT_R];
         }
 
         if(isNotInteger(BMI)) {
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_BMI_N];
         }
 
         if(10 > Integer.parseInt(BMI) || Integer.parseInt(BMI) > 70){
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_BMI_R];
         }
 
         if(isNotInteger(goalBMI)){
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_GOAL_BMI_N];
         }
 
         if(10 > Integer.parseInt(goalBMI) || Integer.parseInt(goalBMI) > 70){
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_GOAL_BMI_R];
         }
 
         if(isNotInteger(goalWeight)){
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_GOAL_WEIGHT_N];
         }
 
         if(40 > Integer.parseInt(goalWeight) || Integer.parseInt(goalWeight) > 240){
-            updateMenu();
+            
             return ERROR_MESSAGES[ERROR_CODE_GOAL_WEIGHT_R];
         }
         updateToFile(age, weight, BMI, goalBMI, goalWeight, preferences, restrictions);
         currentMenu = CLIENT_PROFILE_CODE;
-        updateMenu();
+        
         return ERROR_MESSAGES[SUCCESS_CODE];
     }
 
@@ -374,13 +385,13 @@ public class Clients {
     public ArrayList<Program> getPrograms(String levelFilter, String focusFilter, boolean goBack){
         if(goBack){
             currentMenu = CLIENT_PROFILE_CODE;
-            updateMenu();
+            
             return new ArrayList<>();
         }
         ArrayList<Program> programs = getAllPrograms();
         currentMenu = CLIENT_PROGRAMS_CODE;
         if(levelFilter == null && focusFilter == null){
-            updateMenu();
+            
             return programs;
         }
         ArrayList<Program> tempList = new ArrayList<>();
@@ -402,7 +413,7 @@ public class Clients {
             }
             programs = new ArrayList<>(tempList);
         }
-        updateMenu();
+        
         return programs;
     }
 
@@ -428,39 +439,39 @@ public class Clients {
     public String clientLogin(String username, String password){
         if(!userExists(username)){
             currentMenu = CLIENT_LOGIN_CODE;
-            updateMenu();
+            
             return FAILED_LOGON_USERNAME_MESSAGE;
         }
         if(!checkPassword(username, password)){
             currentMenu = CLIENT_LOGIN_CODE;
-            updateMenu();
+            
             return FAILED_LOGIN_PASSWORD_MESSAGE;
         }
         activeClient = username;
         currentMenu = CLIENT_PROFILE_CODE;
-        updateMenu();
+        
         return SUCCESS_LOGIN_MESSAGE;
     }
 
     public String clientSignUp(String username, String password, String program){
         if (userExists(username)){
             currentMenu = CLIENT_SIGNUP_CODE;
-            updateMenu();
+            
             return FAILED_SIGNUP_USERNAME_MESSAGE;
         }
         if (passwordInvalid(password)){
             currentMenu = CLIENT_SIGNUP_CODE;
-            updateMenu();
+            
             return FAILED_SIGNUP_PASSWORD_MESSAGE;
         }
         if (!programRegistered(program)){
             currentMenu = CLIENT_SIGNUP_CODE;
-            updateMenu();
+            
             return FAILED_SIGNUP_PROGRAM_MESSAGE;
         }
         activeClient = username;
         currentMenu = CLIENT_PROFILE_CODE;
-        updateMenu();
+        
         addClientToProgram(username, program);
         //addUserToFile(username, password);
         return SUCCESS_SIGNUP_MESSAGE;
@@ -486,6 +497,7 @@ public class Clients {
 
      private ArrayList<Client> clients;
      private Programs programs;
+
 
     public Clients() throws IOException {
         clients=new ArrayList<>();
@@ -560,17 +572,13 @@ public class Clients {
         return false;
     }
 
-    public static void addUserToFile(String username, String password){
+    public void addUserToFile(String username, String password){
         try {
-            String string = username + "," + password + "," + "None" + "," + "None" + "," + "None" + "," + "None" + "\n";
+            String string = username + "," + password + "," + "None" + "," + "None" + "," + "None" + "," + "None" + "," + "None" + "," + "None" + "," + "None" + "\n";
             Files.write(Paths.get("src/main/resources/clients.txt"), string.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
-    }
-
-    public static void updateMenu(){
-
     }
 
     public static void addClientToProgram(String username, String program){
@@ -682,12 +690,12 @@ public class Clients {
     public String enrollInProgram(String program){
         if(!Programs.doesProgramExist(program)){
             currentMenu = CLIENT_PROGRAMS_JOIN_CODE;
-            updateMenu();
+            
             return ENROLLMENT_REPLY_MESSAGES[ENROLLMENT_FAIL_PROGRAM_DOES_NOT_EXIST];
         }
         if(Clients.didClientNotCompleteProgram(activeClient, program)){
             currentMenu = CLIENT_PROGRAMS_JOIN_CODE;
-            updateMenu();
+            
             return ENROLLMENT_REPLY_MESSAGES[ENROLLMENT_FAIL_ALREADY_IN_PROGRAM];
         }
         try {
@@ -697,7 +705,7 @@ public class Clients {
 
         }
         currentMenu = CLIENT_PROFILE_CODE;
-        updateMenu();
+        
         return ENROLLMENT_REPLY_MESSAGES[ENROLLMENT_SUCCESS];
     }
      public String MonitorClientProgress(String id) throws FileNotFoundException {
