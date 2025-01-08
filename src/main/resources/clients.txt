@@ -1,2 +1,3 @@
-adam,Son_Goku_real,25,80,28,23,72,diary-free food?,well, diary
-eyas_not_real, 123456789
+adam,Son_Goku_real,25,80,28,23,72,diary-free_food?,well_diary
+eyas_not_real,123456789,25,80,28,23,72,diary-free_food?,well_diary
+aaaa,123456789,20,80,26,23,75,apples,nuts
