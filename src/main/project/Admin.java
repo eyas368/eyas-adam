@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 
 public class Admin {
@@ -20,7 +24,9 @@ public class Admin {
 
     public static String DELETE_SUCCESS_MESSAGE = "DELETE SUCCESS: The user was deleted successfully";
     public static String DELETE_FAILED_MESSAGE = "DELETE FAILED: The username provided does not exists";
-
+    public static int AdminID=555;
+    public static String AdminPassword="password";
+    public static ArrayList<String>RequestedArticles=new ArrayList<>();
     public static String [] UPDATE_MESSAGES = {
             "UPDATE FAILED: User name does not exist",
             "UPDATE FAILED: Password entered is very short, should be more than 7 characters",
@@ -151,25 +157,77 @@ public class Admin {
         programs.getPrograms().sort(Comparator.comparing(Program::getTitle));
         clients.getClients().sort(Comparator.comparing(Client::getID));
         if(type==0)GenerateProgressReports(  clients,  programs, path);
-        else if(type==1)GenerateRevenueReports(  clients,  programs, path);
+        else if(type==1)GenerateRevenueReports(clients,programs, path);
     }
 
     private void GenerateProgressReports(Clients clients,Programs programs,String path) throws FileNotFoundException {
 
+        String pdfPath = path; // Output PDF file path
+
+
+        try (PdfWriter writer = new PdfWriter(pdfPath);
+             PdfDocument pdfDocument = new PdfDocument(writer);
+             Document document = new Document(pdfDocument)) {
+
+            // Adding content to the PDF
+            document.add(new Paragraph(String.format("%-" + 38 + "s","client id") +" | "+String.format("%-" + 32 + "s","CompletionRate")+" | " +String.format("%-" + 36 + "s","AttendanceRecord")));
+            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+
+            for(Client client:clients.getClients()) {
+                String temp = String.format("%-" + 40 + "s", client.getID()+"") + "  |  " + String.format("%-" + 40 + "s", client.getCompletionRate()==-1?"missed":client.getCompletionRate()+"") + "  |  " + String.format("%-" + 40 + "s", client.getAttendanceRecord()==-1?"missed":client.getAttendanceRecord()+"");
+                document.add( new Paragraph(temp));
+
+                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
     }
-
-
 
 
     private void GenerateRevenueReports(Clients clients,Programs programs, String path){
+        String pdfPath = path; // Output PDF file path
 
+        try (PdfWriter writer = new PdfWriter(pdfPath);
+             PdfDocument pdfDocument = new PdfDocument(writer);
+             Document document = new Document(pdfDocument)) {
+
+            // Adding content to the PDF
+            document.add(new Paragraph(String.format("%-" + 40 + "s","program") +" | "+String.format("%-" + 36 + "s","#ofClients")+" | " +String.format("%-" + 36 + "s","price")));
+            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+            int sum=0;
+            for(Program program:programs.getPrograms()) {
+                String temp = String.format("%-" + 40 + "s", program.getTitle()) + "  |  " + String.format("%-" + 40 + "s",getClients(clients,programs,program).size()+"") + "  |  " + String.format("%-" + 40 + "s", program.getPrice()+"");
+                sum+=getClients(clients,programs,program).size()*program.getPrice();
+                document.add( new Paragraph(temp));
+                document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+
+            }
+            document.add(new Paragraph("------------------------------------------------------------------------------------------------"));
+            document.add(new Paragraph("total:"+sum));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
     }
+
+
+
+
+
+
+
+
+
     public String ViewTheMostPopularProgramsByEnrollment(String type,ArrayList<ProgramData>  programsToView,Clients clients, Programs programs){
         if(!UniversalMethods.isInteger(String.valueOf(type)))return "wrong type";
         else {

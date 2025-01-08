@@ -7,5 +7,16 @@ public class ClientStatistics {
         this.completion=completion;
         this.clientID=clientID;
     }
+    @Override
+    public boolean equals(Object o){
+        if(this.clientID!= ( (ClientStatistics)o).clientID)return false;
+        if(this.completion!= ( (ClientStatistics)o).completion)return false;
+        if(this.attendance!= ( (ClientStatistics)o).attendance)return false;
+
+        return true;
+    }
+    public int getClientID(){return clientID;}
+    public int getCompletion(){return completion;}
+    public int getAttendance(){return attendance;}
 
 }

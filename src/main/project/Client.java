@@ -10,13 +10,16 @@ public class Client {
      private int numOfDaysAttended;
      private int numOfDaysMessed;
      private int ID;
-     private String Name;
+    private String name="un named";
      private String MotivationalReminder;
      private Program program;
      private String programTitle;
      private String Notification;
      private String Announcement;
      private String clientsWithProgressPath = "src/main/resources/clients_with_progress.txt";
+
+    public void setName(String name){this.name=name;}
+    public String getName(){return name;}
     public Client(int ID,String programTitle){
         this.ID=ID;
         this.programTitle=programTitle;
@@ -45,7 +48,7 @@ public class Client {
                     case 5:toEditLine=id+","+array[1]+","+array[2]+","+array[3]+","+array[4]+","+value+","+array[6]+","+array[7];break;
                     case 6:toEditLine=id+","+array[1]+","+array[2]+","+array[3]+","+array[4]+","+array[5]+","+value+","+array[7];break;
                     case 7:toEditLine=id+","+array[1]+","+array[2]+","+array[3]+","+array[4]+","+array[5]+","+array[6]+","+value;break;
-
+                    case 8:continue;
                 }
                 dataToFile.add(toEditLine);
                 continue;
@@ -64,7 +67,7 @@ public class Client {
     }
 
 
-< 
+
 
     private String SearchForClientInProgress(int id) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(clientsWithProgressPath));
@@ -168,6 +171,9 @@ public class Client {
     public void setCompletionRate(int completionRate) throws IOException {
         CompletionRate = completionRate;
         writeToFile(this.ID,3,completionRate+"");
+    }
+    public  void removeClint() throws IOException {
+        writeToFile(this.ID,8,"");
     }
 
 

@@ -1,4 +1,7 @@
 import io.cucumber.java.en.*;
+
+import java.io.FileNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -11,7 +14,7 @@ public class InstructorSignup {
     }
 
     @When("instructor entered username {string} and password {string}")
-    public void instructor_entered_username_and_password(String username, String password) {
+    public void instructor_entered_username_and_password(String username, String password) throws FileNotFoundException {
         actualResponse = instructors.instructorSignup(username, password);
     }
 

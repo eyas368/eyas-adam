@@ -9,10 +9,16 @@ public class Instructor {
     private String InstructorPass;
     private int instructorID;
 
-    public Instructor(int instructorID){
+    public Instructor(String instructorName,String instructorPass, int instructorID){
+
         this.instructorID=instructorID;
+        this.InstructorPass=instructorPass;
+        this.InstructorName=instructorName;
     }
     public int getInstructorID(){return instructorID;}
+    public   String getName(){return InstructorName;}
+    public String getInstructorPass(){return InstructorPass;}
+
 
 
 }

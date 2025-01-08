@@ -486,6 +486,7 @@ public class Clients {
 
      private ArrayList<Client> clients;
      private Programs programs;
+
     public Clients() throws IOException {
         clients=new ArrayList<>();
         programs=new Programs();
@@ -513,6 +514,7 @@ public class Clients {
         }
         scanner.close();
     }
+
     public Programs getPrograms(){return programs;}
 
 
@@ -834,6 +836,9 @@ public class Clients {
             return "Announcement has been sent";
         }
         else return "wrong Announcement";
+
+    }
+    public void deleteFromToProgressFile(int id){
 
     }
 
