@@ -61,8 +61,10 @@ public class Main
              print("Enter valid input");
              now = read();
          }
-         if (now.equals("1"))
+         if (now.equals("1")) {
              signUpMenu();
+             clients.setCurrentMenu(Clients.CLIENT_SIGNUP_CODE);
+         }
          else{
              clients.setCurrentMenu(Clients.CLIENT_LOGIN_CODE);
              signInMenu();
@@ -73,7 +75,7 @@ public class Main
         String name = "";
         String password = "";
         String program = "";
-        while(clients.getCurrentMenu() == Clients.CLIENT_LOGIN_CODE) {
+        while(clients.getCurrentMenu() == Clients.CLIENT_SIGNUP_CODE) {
             print("Enter Username:");
             name = read();
             print("Enter Password:");
